@@ -27,7 +27,7 @@ Props to geerlingguy the ansible guru and Joyent's packer-centos-7 repo for insp
     vagrant ssh
     sudo -s
     yum install -y ansible
-ansible-playbook -i "localhost," -c local /vagrant/ansible/main.yml
+    ansible-playbook -i "localhost," -c local /vagrant/ansible/main.yml
 ```
 You might want to comment out:
 ```
