@@ -1,4 +1,7 @@
 *.iso
 *.box
 *.DS_Store
+*.vagrant
 packer_cache/*
+build/*
+builds/*
