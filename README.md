@@ -3,7 +3,7 @@ A set of [(Ansible)](https://www.ansible.com) scripts around [Packer by HashiCor
 
 - The idea is that the [Kickstart](http://pykickstart.readthedocs.io/en/latest/) file 'ks.cfg' is as simple as possible and all the configuration is done by Ansible.
 
-Props to **Jeff Geerling** aka "***geerlingguy***" who made a great "HowTo" and is the creator of the 'packer-rhel' role which is the basis of this project.
+Props to **Jeff Geerling** aka "***geerlingguy***" who made a great howto on this and is the creator of the original 'packer-rhel' role which is the base of this project.
 
 - [Jeff's HowTo Vagrant and Ansible](http://www.jeffgeerling.com/blog/server-vm-images-ansible-and-packer).
 - [geerlingguy/packer-rhel](https://galaxy.ansible.com/geerlingguy/packer-rhel/).
@@ -40,4 +40,4 @@ You might want to comment out:
 ```  
 
 ## Note
-More info on the Ansible part is in the README.md in ansible/roles/packer-rhel
+More info on the Ansible part is in the README.md in ***ansible/roles/packer-rhel***
