@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-# Install EPEL repository. (moved to Kickstart)
-
+# Install EPEL repository.
+yum -y install epel-release
 # Install Ansible.
 yum -y install ansible

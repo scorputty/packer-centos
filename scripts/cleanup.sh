@@ -2,6 +2,7 @@
 
 # Remove Ansible and its dependencies.
 yum -y remove ansible
+yum -y remove epel-release
 
 # Clean yum cache
 yum -y clean all
