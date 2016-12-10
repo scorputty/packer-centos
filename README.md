@@ -3,10 +3,10 @@ A set of (Ansible) scripts around HashiCorp's Packer to build a CentOS-7 box for
 
 - The idea is that the kickstart file 'ks.cfg' is as simple as possible and all the configuration is done by Ansible.
 
-Props to Jeff Geerling's aka "geerlingguy" who's code and howto is the base of this project.
+Props to Jeff Geerling's aka "geerlingguy" who's great "HowTo" and 'packer-rhel' code is the basis of this project.
 
+- [Jeff's HowTo Vagrant and Ansible](http://www.jeffgeerling.com/blog/server-vm-images-ansible-and-packer).
 - [geerlingguy/packer-rhel](https://galaxy.ansible.com/geerlingguy/packer-rhel/).
-- [Jeff's howto Vagrant and Ansible](http://www.jeffgeerling.com/blog/server-vm-images-ansible-and-packer).
 
 ### Prerequisites (on a mac)
 ```
@@ -17,7 +17,7 @@ Props to Jeff Geerling's aka "geerlingguy" who's code and howto is the base of t
     brew install packer
 ```
 
-## Howto
+## HowTo 
 ```
     git clone https://github.com/scorputty/packer-centos-7.git
     cd packer-centos-7
