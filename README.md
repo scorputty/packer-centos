@@ -5,8 +5,8 @@ A set of (Ansible) scripts around HashiCorp's Packer to build a CentOS-7 box for
 
 Props to Jeff Geerling's aka "geerlingguy" who's code and howto is the base of this project.
 
-[geerlingguy/packer-rhel](https://galaxy.ansible.com/geerlingguy/packer-rhel/).
-[Jeff's howto Vagrant and Ansible](http://www.jeffgeerling.com/blog/server-vm-images-ansible-and-packer).
+- [geerlingguy/packer-rhel](https://galaxy.ansible.com/geerlingguy/packer-rhel/).
+- [Jeff's howto Vagrant and Ansible](http://www.jeffgeerling.com/blog/server-vm-images-ansible-and-packer).
 
 ### Prerequisites (on a mac)
 ```
