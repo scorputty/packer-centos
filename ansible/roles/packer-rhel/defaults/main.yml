@@ -1,7 +1,9 @@
 ---
+# Change to suit you situation/location
 timezone: Europe/Amsterdam
-ntp_driftfile: /var/lib/ntp/drift
 ntp_server: [0.nl.pool.ntp.org, 1.nl.pool.ntp.org]
+
+ntp_driftfile: /var/lib/ntp/drift
 ntp_restrict:
   - "restrict -4 default kod notrap nomodify nopeer noquery"
   - "restrict -6 default kod notrap nomodify nopeer noquery"

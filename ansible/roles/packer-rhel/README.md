@@ -2,68 +2,44 @@
 
 This role configures CentOS (either minimal or full install) in preparation for it to be packaged as part of a .box file for Vagrant/VirtualBox deployment using [Packer](http://www.packer.io/).
 
-It's based heavily on Jeff Geerling's [Galaxy](https://galaxy.ansible.com/geerlingguy/packer-rhel/). With the difference that this role is VirtualBox only. One other thing, I've tried to do as much as possible in the role instead of in the Kickstart file. This makes the whole process more transparent.
+It's based heavily on Jeff Geerling's aka "geerlingguy" [Galaxy role packer-rhel](https://galaxy.ansible.com/geerlingguy/packer-rhel/). The difference that this role is VirtualBox only. One other thing, I've tried to do as much as possible in the role instead of in the Kickstart file. This makes the whole process more transparent.
 
-## Requirements
+### Note
+Change the variables in 'defaults/main.yml'
+```
+    timezone: Europe/Amsterdam
+    ntp_server: [0.nl.pool.ntp.org, 1.nl.pool.ntp.org]
+```
 
-Prior to running this role via Packer, you need to make sure Ansible is installed via a shell provisioner, and that preliminary VM configuration (like adding a vagrant user to the appropriate group and the sudoers file) is complete, generally by using a Kickstart installation file (e.g. `ks.cfg`) with Packer. An example array of provisioners for your Packer .json template would be something like:
+### The following main tasks are executed
+```
+    - name: Get the current kernel release.
+    - name: Ensure necessary packages are installed.
+    - name: Set timezone
+    - name: Copy the ntp.conf template file
+    - name: Ensure NTP is running and enabled as configured.
+    - name: Fix slow DNS (adapted from Bento).
+    - name: Bug fixing network loopback
+    - name: Restart network service (explicitly).
+    - name: Configure SSH daemon.
+    - name: Configure Vagrant .ssh directory.
+    - name: Get Vagrant's public key.
+    - name: Check if VirtualBox is running the guest VM.
+    - name: Remove unneeded packages.
+    - name: Remove surplus kernels
+    - name: Clean up yum.
+    - name: Remove files
+    - name: Clean yum caches
+    - name: Remove RedHat interface persistence.
+    - name: System tuning
+    - name: Disable unnecessary services
+```
 
-    "provisioners": [
-      {
-        "type": "shell",
-        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
-        "script": "scripts/ansible.sh"
-      },
-      {
-        "type": "ansible-local",
-        "playbook_file": "ansible/main.yml",
-        "role_paths": [
-          "/etc/ansible/packer-rhel",
-        ]
-      }
-    ],
-
-The files should contain, at a minimum:
-
-**scripts/ansible.sh**:
-
-    #!/bin/bash -eux
-    # Install EPEL repository.
-    yum -y install epel-release
-    # Install Ansible.
-    yum -y install ansible
-
-**ansible/main.yml**:
-
-    ---
-    - hosts: all
-      sudo: yes
-      gather_facts: yes
-      roles:
-        - scorputty.packer-rhel
-
-You might also want to add another shell provisioner to run cleanup, erasing free space using `dd`, but this is not required (it will just save a little disk space in the Packer-produced .box file).
-
-If you'd like to add additional roles, make sure you add them to the `role_paths` array in the template .json file, and then you can include them in `main.yml` as you normally would. The Ansible configuration will be run over a local connection from within the Linux environment, so all relevant files need to be copied over to the VM; configuratin for this is in the template .json file. Read more: [Ansible Local Provisioner](http://www.packer.io/docs/provisioners/ansible-local.html).
-
-## Role Variables
-
-None.
-
-## Dependencies
-
-None.
-
-## Example Playbook
-
-    - hosts: all
-      roles:
-        - { role: scorputty.packer-rhel }
-
-## License
-
-MIT / BSD
-
-## Author Information
-
-This role was created in 2016 by [Stef Corputty].
+### A separate included task is added for virtualbox guest additions
+```
+    - name: Get VirtualBox version.
+    - name: Mount VirtualBox guest additions ISO.
+    - name: Run VirtualBox guest additions installation.
+    - name: Unmount VirtualBox guest additions ISO.
+    - name: Delete VirtualBox guest additions ISO.
+```
