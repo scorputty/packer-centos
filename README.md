@@ -27,6 +27,7 @@ Props to **Jeff Geerling** aka "***geerlingguy***" who made a great "HowTo" and 
 ### Test / develop / troubleshoot ansible from vagrant box like so:
 ```
     vagrant init virtualbox-centos7 builds/virtualbox-centos7.box
+    vagrant up
     vagrant ssh
     sudo -s
     yum install -y ansible
