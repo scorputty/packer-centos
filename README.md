@@ -1,7 +1,7 @@
 # Vagrant Ansible Packer CentOS-7
-A set of (Ansible) scripts around HashiCorp's Packer to build a CentOS-7 box for Vagrant or VirtualBox.
+A set of [(Ansible)](https://www.ansible.com) scripts around [Packer by HashiCorp](https://www.packer.io/) to build a [CentOS 7](https://www.centos.org) box for [Oracle VM VirtualBox](https://www.virtualbox.org).
 
-- The idea is that the kickstart file 'ks.cfg' is as simple as possible and all the configuration is done by Ansible.
+- The idea is that the [Kickstart](http://pykickstart.readthedocs.io/en/latest/) file 'ks.cfg' is as simple as possible and all the configuration is done by Ansible.
 
 Props to Jeff Geerling's aka "geerlingguy" who's great "HowTo" and 'packer-rhel' code is the basis of this project.
 
@@ -17,7 +17,7 @@ Props to Jeff Geerling's aka "geerlingguy" who's great "HowTo" and 'packer-rhel'
     brew install packer
 ```
 
-## HowTo 
+## HowTo
 ```
     git clone https://github.com/scorputty/packer-centos-7.git
     cd packer-centos-7
