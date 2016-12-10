@@ -16,7 +16,7 @@ Props to **Jeff Geerling** aka "***geerlingguy***" who made a great howto on thi
     brew install ansible
     brew install packer
 ```
-If you want the box to upload to Atlas you need to add your Token within the ` ` to the centos7.json or else comment out the whole part. 
+If you want the box to upload to Atlas you need to add your Token within the forward quotes to the centos7.json and fill in your Atlas username, or else comment out the whole part. 
 ```
     {
       "type": "atlas",
