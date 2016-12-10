@@ -62,7 +62,19 @@
   "post-processors": [
     {
       "output": "builds/{{.Provider}}-centos7.box",
-      "type": "vagrant"
+      "type": "vagrant",
+      "keep_input_artifact": false
+    },
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "token": "{{`NEW-TOKEN-HERE`}}",
+      "artifact": "scorputty/centos-7.2",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "created_at": "{{timestamp}}"
+      }
     }
   ]
 }
