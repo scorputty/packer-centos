@@ -16,6 +16,20 @@ Props to **Jeff Geerling** aka "***geerlingguy***" who made a great howto on thi
     brew install ansible
     brew install packer
 ```
+If you want the box to upload to Atlas you need to add your Token within the ` ` to the centos7.json or else comment out the whole part. 
+```
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "token": "{{`NEW-TOKEN-HERE`}}",
+      "artifact": "ATLAS-NAME/centos-7.2",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "created_at": "{{timestamp}}"
+      }
+    }
+```
 
 ## HowTo
 ```
