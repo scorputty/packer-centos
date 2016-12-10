@@ -27,3 +27,8 @@ $ sudo -s
 $ yum install -y ansible
 $ ansible-playbook -i "localhost," -c local /vagrant/ansible/main.yml
 ```
+You might want to comment out:
+```
+- include: virtualbox.yml
+  when: virtualbox_check.stat.exists
+```  
