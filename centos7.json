@@ -27,7 +27,7 @@
       "boot_wait": "10s",
       "disk_size": 81920,
       "guest_os_type": "RedHat_64",
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "iso_urls": [
         "CentOS-7-x86_64-Minimal-1511.iso",
@@ -60,21 +60,23 @@
     }
   ],
   "post-processors": [
-    {
-      "output": "builds/{{.Provider}}-centos7.box",
+    [{
       "type": "vagrant",
-      "keep_input_artifact": false
+      "compression_level": 9,
+      "keep_input_artifact": false,
+      "output": "builds/{{.Provider}}-centos-7.2.box"
     },
     {
       "type": "atlas",
       "only": ["virtualbox-iso"],
-      "token": "{{`NEW-TOKEN-HERE`}}",
+      "token": "{{`YOUR_ATLAS_TOKEN_HERE`}}",
       "artifact": "scorputty/centos-7.2",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "created_at": "{{timestamp}}"
+        "created_at": "{{timestamp}}",
+        "version": "1.0.6"
       }
-    }
+    }]
   ]
 }
