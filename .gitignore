@@ -2,6 +2,7 @@
 *.box
 *.DS_Store
 *.vagrant
+*.retry
 packer_cache/*
 build/*
 builds/*

@@ -1,7 +1,12 @@
 # Vagrant Ansible Packer CentOS-7
 A set of [(Ansible)](https://www.ansible.com) scripts around [Packer by HashiCorp](https://www.packer.io/) to build a [CentOS 7](https://www.centos.org) box for [Oracle VM VirtualBox](https://www.virtualbox.org).
 
-- The idea is that the [Kickstart](http://pykickstart.readthedocs.io/en/latest/) file 'ks.cfg' is as simple as possible and all the configuration is done by Ansible.
+- The idea is that the [Kickstart](http://pykickstart.readthedocs.io/en/latest/) file 'ks.cfg' is as simple as possible and all the configuration is done by Ansible. Also Ansible is ran from your OSX Laptop, it's not installed on the VM.
+
+Other notables:
+
+- btrfs
+- no perl
 
 - You can find the build box here "https://atlas.hashicorp.com/scorputty/boxes/centos-7.2"
 
@@ -18,24 +23,25 @@ Props to **Jeff Geerling** aka "***geerlingguy***" who made a great howto on thi
     brew install ansible
     brew install packer
 ```
-If you want the box to upload to Atlas you need to add your Token within the forward quotes to the centos7.json and fill in your Atlas username, or else comment out the whole part. Setting up the atlas env stuff is for a later release.
+If you want the box to upload to Atlas you need to add your ATLAS_TOKEN and ATLAS_BUILD_SLUG to your shell ENV, or else comment out the whole part. Setting up the atlas env stuff is explained [here](https://vagrantcloud.com/help/packer/builds/build-environment).
 ```
-    "type": "atlas",
-    "only": ["virtualbox-iso"],
-    "token": "{{`YOUR_ATLAS_TOKEN_HERE`}}",
-    "artifact": "YOUR_ATLAS_NAME/centos-7.2",
-    "artifact_type": "vagrant.box",
-    "metadata": {
-      "provider": "virtualbox",
-      "created_at": "{{timestamp}}",
-      "version": "1.0.6"
-    }
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "token": "{{user `atlas_token`}}",
+      "artifact": "{{user `atlas_build_slug`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "created_at": "{{timestamp}}",
+        "version": ""
+      }
 ```
 
 ## HowTo
 ```
-    git clone https://github.com/scorputty/packer-centos-7.git
-    cd packer-centos-7
+    git clone https://github.com/scorputty/packer-centos.git
+    cd packer-centos
     time packer build centos7.json
 ```
 
