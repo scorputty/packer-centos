@@ -5,7 +5,6 @@ A set of [(Ansible)](https://www.ansible.com) scripts around [Packer by HashiCor
 
 Other notables:
 
-- btrfs
 - no perl
 
 - You can find the build box here "https://atlas.hashicorp.com/scorputty/boxes/centos-7.2"
