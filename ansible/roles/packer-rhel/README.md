@@ -13,26 +13,25 @@ Change the variables in 'defaults/main.yml'
 
 ### The following main tasks are executed
 ```
+    - name: Fix slow DNS (adapted from Bento).
+    - name: Bug fixing ifcfg-lo errors network loopback
+    - name: Remove RedHat interface persistence.
+    - name: System tuning
+    - name: Disable unnecessary services
+    - name: Restart network service (explicitly).
     - name: Get the current kernel release.
     - name: Ensure necessary packages are installed.
-    - name: Set timezone
-    - name: Copy the ntp.conf template file
-    - name: Ensure NTP is running and enabled as configured.
-    - name: Fix slow DNS (adapted from Bento).
-    - name: Bug fixing network loopback
-    - name: Restart network service (explicitly).
-    - name: Configure SSH daemon.
-    - name: Configure Vagrant .ssh directory.
-    - name: Get Vagrant's public key.
     - name: Check if VirtualBox is running the guest VM.
     - name: Remove unneeded packages.
     - name: Remove surplus kernels
     - name: Clean up yum.
     - name: Remove files
     - name: Clean yum caches
-    - name: Remove RedHat interface persistence.
-    - name: System tuning
-    - name: Disable unnecessary services
+    - name: Set timezone
+    - name: Copy the ntp.conf template file
+    - name: Ensure NTP is running and enabled as configured.
+    - name: Configure SSH daemon.
+    - name: Get Vagrants public key.
 ```
 
 ### A separate included task is added for virtualbox guest additions

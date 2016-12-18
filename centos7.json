@@ -1,7 +1,8 @@
 {
   "variables": {
     "atlas_token": "{{env `ATLAS_TOKEN`}}",
-    "atlas_build_slug": "{{env `ATLAS_BUILD_SLUG`}}"
+    "atlas_build_slug": "{{env `ATLAS_BUILD_SLUG`}}",
+    "atlas_changelog": "{{env `ATLAS_CHANGELOG`}}"
   },
   "builders": [
     {
@@ -51,7 +52,7 @@
       "type": "vagrant",
       "compression_level": 9,
       "keep_input_artifact": false,
-      "output": "builds/{{.Provider}}-centos-7.2.box"
+      "output": "builds/{{.Provider}}-centos-7.box"
     },
     {
       "type": "atlas",
@@ -62,6 +63,7 @@
       "metadata": {
         "provider": "virtualbox",
         "created_at": "{{timestamp}}",
+        "description": "{{user `atlas_changelog`}}",
         "version": ""
       }
     }]

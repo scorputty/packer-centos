@@ -7,3 +7,5 @@ packer_cache/*
 build/*
 builds/*
 Vagrantfile
+packer.log
+output*
