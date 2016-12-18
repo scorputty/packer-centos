@@ -5,9 +5,9 @@ A set of [(Ansible)](https://www.ansible.com) scripts around [Packer by HashiCor
 
 Other notables:
 
-- no perl
+- none
 
-- You can find the build box here "https://atlas.hashicorp.com/scorputty/boxes/centos-7.2"
+- You can find the build box here "https://atlas.hashicorp.com/scorputty/boxes/centos"
 
 Props to **Jeff Geerling** aka "***geerlingguy***" who made a great howto on this and is the creator of the original 'packer-rhel' role which is the base of this project.
 
@@ -46,7 +46,7 @@ If you want the box to upload to Atlas you need to add your ATLAS_TOKEN and ATLA
 
 ### Test / develop / troubleshoot ansible from vagrant box like so:
 ```
-    vagrant init virtualbox-centos-7.2.box builds/virtualbox-centos-7.2.box
+    vagrant init virtualbox-centos-7 builds/virtualbox-centos-7.2.box
     vagrant up
     vagrant ssh
     sudo -s
