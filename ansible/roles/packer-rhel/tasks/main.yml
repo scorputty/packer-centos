@@ -31,7 +31,7 @@
 
   # check if it's VirtualBox
   - name: Check if VirtualBox of QEMU
-    command: dmidecode -s | egrep -i 'vendor'
+    command: dmidecode | egrep -i 'vendor'
     register: command_result
 
   - name: check result dmidecode |
