@@ -30,10 +30,42 @@
   with_items:
     - kdump
 
-- name: Restart network service (explicitly).
-  service: name=network state=restarted
+# - name: Restart network service (explicitly).
+#   service: name=network state=restarted
 
-# Packages
+# Setup time
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+
+- name: Copy the ntp.conf template file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+
+- name: Ensure NTP is running and enabled as configured.
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+
+# SSH daemon configuration.
+- name: Configure SSH daemon.
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - { regexp: '^UseDNS', line: 'UseDNS no' }
+    - { regexp: '^GSSAPIAuthentication', line: 'GSSAPIAuthentication no' }
+
+# Vagrant SSH configuration.
+- name: Get Vagrants public key.
+  authorized_key:
+    user: vagrant
+    key: https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
+    validate_certs: no
+
+# Install packages
 - name: Get the current kernel release.
   command: uname -r
   changed_when: false
@@ -91,35 +123,3 @@
   file: name="{{ item }}" state=absent
   with_items:
     - /etc/udev/rules.d/70-persistent-net.rules
-
-# Setup time
-- name: Set timezone
-  timezone:
-    name: "{{ timezone }}"
-
-- name: Copy the ntp.conf template file
-  template: src=ntp.conf.j2 dest=/etc/ntp.conf
-
-- name: Ensure NTP is running and enabled as configured.
-  service:
-    name: ntpd
-    state: started
-    enabled: yes
-
-# SSH daemon configuration.
-- name: Configure SSH daemon.
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
-  with_items:
-    - { regexp: '^UseDNS', line: 'UseDNS no' }
-    - { regexp: '^GSSAPIAuthentication', line: 'GSSAPIAuthentication no' }
-
-# Vagrant SSH configuration.
-- name: Get Vagrants public key.
-  authorized_key:
-    user: vagrant
-    key: https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
-    validate_certs: no

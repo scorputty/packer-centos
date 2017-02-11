@@ -15,9 +15,9 @@
       "ssh_host_port_min": 2222,
       "ssh_host_port_max": 2229,
       "ssh_port": 22,
-      "ssh_wait_timeout": "6000s",
+      "ssh_wait_timeout": "600s",
       "disk_size": 51200,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "iso_checksum": "27bd866242ee058b7a5754e83d8ee8403e216b93d130d800852a96f41c34d86a",
       "iso_checksum_type": "sha256",
@@ -38,6 +38,33 @@
           "modifyvm", "{{.Name}}", "--cpus", "2"
         ]
       ]
+    },
+    {
+      "type": "qemu",
+      "format": "qcow2",
+      "accelerator": "tcg",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "5s",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_port": 22,
+      "ssh_wait_timeout": "600s",
+      "disk_size": 51200,
+      "headless": false,
+      "http_directory": "http",
+      "iso_checksum": "27bd866242ee058b7a5754e83d8ee8403e216b93d130d800852a96f41c34d86a",
+      "iso_checksum_type": "sha256",
+      "iso_urls": "http://mirror.1000mbps.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
+      "vm_name": "packer-centos-7-x86_64"
     }
   ],
   "provisioners": [
