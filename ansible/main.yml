@@ -1,8 +1,8 @@
 ---
-- hosts: all
-  become: yes
-  user: name=vagrant
-  gather_facts: yes
+  - hosts: all
+    become: yes
+    user: name=vagrant
+    gather_facts: yes
 
-  roles:
-    - packer-rhel
+    roles:
+      - packer-rhel
