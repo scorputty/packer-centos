@@ -72,13 +72,7 @@
   "provisioners": [
     {
       "type": "ansible",
-      "playbook_file": "ansible/main.yml --tags virtualbox",
-      "only": ["virtualbox-iso"]
-    },
-    {
-      "type": "ansible",
-      "playbook_file": "ansible/main.yml --tags qemubox",
-      "only": ["qemu"]
+      "playbook_file": "ansible/main.yml",
     },
     {
       "type": "shell",
