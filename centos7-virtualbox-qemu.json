@@ -66,7 +66,6 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
-      "guest_os_type": "RedHat_64",
       "vm_name": "packer-centos-7-x86_64"
     }
   ],
