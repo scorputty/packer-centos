@@ -30,16 +30,17 @@
       - zlib-devel
 
   # check if it's VirtualBox
-  - name: Check if VirtualBox is running the guest VM.
-    command: dmidecode -s system-product-name
+  - name: Check if VirtualBox of QEMU
+    command: sudo dmidecode | egrep -i 'vendor'
     register: command_result
 
-  - name: check result system-product-name
+  - name: check result dmidecode |
     debug: msg="{{ command_result.stdout }}"
 
-  # Install GuestAdditions
+  # Install GuestAdditions (ignore errors for qemu)
   - include: vboxguestadditions.yml
-    when: "'VirtualBox' in command_result.stdout"
+    when: not "'QEMU' in command_result.stdout"
+    ignore_errors: yes
 
   # Fixes
   - name: Fix slow DNS (adapted from Bento).
