@@ -17,7 +17,7 @@
       "ssh_port": 22,
       "ssh_wait_timeout": "6000s",
       "disk_size": 51200,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "iso_checksum": "27bd866242ee058b7a5754e83d8ee8403e216b93d130d800852a96f41c34d86a",
       "iso_checksum_type": "sha256",
