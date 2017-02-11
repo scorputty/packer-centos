@@ -26,7 +26,7 @@
   shell: echo "vm.dirty_background_bytes=100000000" >> /etc/sysctl.conf
 
 - name: Disable unnecessary services
-  service: name="{{ item }}" state=stopped enabled=no
+  systemd: name="{{ item }}" state=stopped enabled=no
   with_items:
     - kdump
 
@@ -42,7 +42,7 @@
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
 
 - name: Ensure NTP is running and enabled as configured.
-  service:
+  systemd:
     name: ntpd
     state: started
     enabled: yes
