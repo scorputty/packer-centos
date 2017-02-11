@@ -1,4 +1,43 @@
 ---
+# Install packages
+- name: Get the current kernel release.
+  command: uname -r
+  changed_when: false
+  register: kernel_release
+
+- name: Ensure necessary packages are installed.
+  yum: "name={{ item }} state=present"
+  with_items:
+    - bzip2
+    - cpp
+    - curl
+    - gcc
+    - "kernel-devel-{{ kernel_release.stdout }}"
+    - kernel-headers
+    - libselinux-python
+    - make
+    - net-tools
+    - NetworkManager
+    - ntp
+    - openssh-clients
+    - openssl-devel
+    - readline-devel
+    - rsync
+    - sudo
+    - vim
+    - wget
+    - yum-utils
+    - zlib-devel
+
+# VirtualBox tools installation.
+- name: Check if VirtualBox is running the guest VM.
+  stat: path=/home/vagrant/.vbox_version
+  register: virtualbox_check
+
+# Install GuestAdditions
+- include: virtualbox.yml
+  when: virtualbox_check.stat.exists
+
 # Fixes
 - name: Fix slow DNS (adapted from Bento).
   lineinfile:
@@ -64,45 +103,6 @@
     user: vagrant
     key: https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
     validate_certs: no
-
-# Install packages
-- name: Get the current kernel release.
-  command: uname -r
-  changed_when: false
-  register: kernel_release
-
-- name: Ensure necessary packages are installed.
-  yum: "name={{ item }} state=present"
-  with_items:
-    - bzip2
-    - cpp
-    - curl
-    - gcc
-    - "kernel-devel-{{ kernel_release.stdout }}"
-    - kernel-headers
-    - libselinux-python
-    - make
-    - net-tools
-    - NetworkManager
-    - ntp
-    - openssh-clients
-    - openssl-devel
-    - readline-devel
-    - rsync
-    - sudo
-    - vim
-    - wget
-    - yum-utils
-    - zlib-devel
-
-# VirtualBox tools installation.
-- name: Check if VirtualBox is running the guest VM.
-  stat: path=/home/vagrant/.vbox_version
-  register: virtualbox_check
-
-# Install GuestAdditions
-- include: virtualbox.yml
-  when: virtualbox_check.stat.exists
 
 # Cleanup tasks.
 - name: Remove unneeded packages.
