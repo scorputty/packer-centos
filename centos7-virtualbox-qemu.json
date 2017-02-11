@@ -42,7 +42,7 @@
     {
       "type": "qemu",
       "format": "qcow2",
-      "accelerator": "tcg",
+      "accelerator": "node",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
       "boot_wait": "5s",
