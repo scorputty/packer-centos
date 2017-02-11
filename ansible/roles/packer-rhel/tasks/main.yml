@@ -31,7 +31,7 @@
 
   # check if it's VirtualBox
   - name: Check if VirtualBox of QEMU
-    command: "dmidecode | egrep -i vendor"
+    command: dmidecode -s system-product-name
     register: command_result
 
   - name: check result dmidecode |
@@ -39,7 +39,7 @@
 
   # Install GuestAdditions (ignore errors for qemu)
   - include: vboxguestadditions.yml
-    when: not "'QEMU' in command_result.stdout"
+    when: "'VirtualBox' in command_result.stdout"
     ignore_errors: yes
 
   # Fixes
