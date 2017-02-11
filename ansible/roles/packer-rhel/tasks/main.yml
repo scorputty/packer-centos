@@ -34,6 +34,9 @@
     command: dmidecode -s system-product-name
     register: command_result
 
+  - name: check result system-product-name
+    debug: msg="{{ command_result.stdout }}"
+
   # Install GuestAdditions
   - include: vboxguestadditions.yml
     when: "'VirtualBox' in command_result.stdout"
