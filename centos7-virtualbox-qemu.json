@@ -8,6 +8,8 @@
     {
       "type": "virtualbox-iso",
       "boot_wait": "5s",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
       "http_port_min": 10082,
       "http_port_max": 10089,
       "ssh_username": "vagrant",
@@ -64,13 +66,20 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
+      "guest_os_type": "RedHat_64",
       "vm_name": "packer-centos-7-x86_64"
     }
   ],
   "provisioners": [
     {
       "type": "ansible",
-      "playbook_file": "ansible/main.yml"
+      "playbook_file": "ansible/virtualbox.yml",
+      "only": ["virtualbox-iso"]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "ansible/qemubox.yml",
+      "only": ["qemu"]
     },
     {
       "type": "shell",
