@@ -34,12 +34,12 @@
     command: dmidecode -s system-manufacturer
     register: command_result
 
-  - name: check result dmidecode |
+  - name: check result dmidecode
     debug: msg="{{ command_result.stdout }}"
 
   # Install GuestAdditions (ignore errors for qemu)
   - include: vboxguestadditions.yml
-    when: not "'QEMU' in command_result.stdout"
+    when: not 'QEMU' in command_result.stdout
 
   # Fixes
   - name: Fix slow DNS (adapted from Bento).
