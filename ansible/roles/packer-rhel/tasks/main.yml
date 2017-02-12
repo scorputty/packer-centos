@@ -31,7 +31,7 @@
 
   # check if it's VirtualBox
   - name: Check if VirtualBox of QEMU
-    command: dmidecode -s system-product-name
+    command: dmidecode -s system-manufacturer
     register: command_result
 
   - name: check result dmidecode |
@@ -39,8 +39,7 @@
 
   # Install GuestAdditions (ignore errors for qemu)
   - include: vboxguestadditions.yml
-    when: "'VirtualBox' in command_result.stdout"
-    ignore_errors: yes
+    when: not "'QEMU' in command_result.stdout"
 
   # Fixes
   - name: Fix slow DNS (adapted from Bento).

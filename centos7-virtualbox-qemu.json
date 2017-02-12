@@ -45,6 +45,8 @@
       "accelerator": "tcg",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
+      "disk_size": 51200,
+      "format": "raw",
       "boot_wait": "5s",
       "http_port_min": 10082,
       "http_port_max": 10089,
@@ -54,7 +56,6 @@
       "ssh_host_port_max": 2229,
       "ssh_port": 22,
       "ssh_wait_timeout": "12800s",
-      "disk_size": 51200,
       "headless": true,
       "http_directory": "http",
       "iso_checksum": "27bd866242ee058b7a5754e83d8ee8403e216b93d130d800852a96f41c34d86a",
@@ -64,7 +65,11 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
-      "vm_name": "packer-centos-7-x86_64"
+      "vm_name": "packer-centos-7-x86_64",
+      "qemuargs": [
+        [ "-m", "4096" ],
+        [ "-smp", "2,sockets=2,cores=1,threads=1" ]
+      ]
     }
   ],
   "provisioners": [
@@ -87,12 +92,12 @@
     },
     {
       "type": "atlas",
-      "only": ["virtualbox-iso"],
+      "only": ["virtualbox-iso", "qemu"],
       "token": "{{user `atlas_token`}}",
       "artifact": "{{user `atlas_build_slug`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
-        "provider": "virtualbox",
+        "provider": ["virtualbox", "libvirt"],
         "created_at": "{{timestamp}}",
         "description": "{{user `atlas_changelog`}}",
         "version": ""
