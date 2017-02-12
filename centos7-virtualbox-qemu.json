@@ -97,7 +97,7 @@
       "artifact": "{{user `atlas_build_slug`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
-        "provider": ["virtualbox", "libvirt"],
+        "provider": "virtualbox",
         "created_at": "{{timestamp}}",
         "description": "{{user `atlas_changelog`}}",
         "version": ""
