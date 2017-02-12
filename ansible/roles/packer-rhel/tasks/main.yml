@@ -32,14 +32,14 @@
   # check if it's VirtualBox
   - name: Check if VirtualBox of QEMU
     command: dmidecode -s system-manufacturer
-    register: command_result
+    register: result
 
   - name: check result dmidecode
-    debug: msg="{{ command_result.stdout }}"
+    debug: msg="{{ result.stdout }}"
 
   # Install GuestAdditions (ignore errors for qemu)
   - include: vboxguestadditions.yml
-    when: not 'QEMU' in command_result.stdout
+    when: result.stdout != "QEMU" 
 
   # Fixes
   - name: Fix slow DNS (adapted from Bento).
