@@ -35,7 +35,7 @@
           "modifyvm", "{{.Name}}", "--memory", "2048"
         ],
         [
-          "modifyvm", "{{.Name}}", "--cpus", "2"
+          "modifyvm", "{{.Name}}", "--cpus", "4"
         ]
       ]
     }
@@ -55,7 +55,7 @@
     [{
       "type": "vagrant",
       "compression_level": 9,
-      "keep_input_artifact": false,
+      "keep_input_artifact": true,
       "output": "builds/{{.Provider}}-centos-7.box"
     },
     {
