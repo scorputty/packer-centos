@@ -15,7 +15,7 @@
       "ssh_host_port_min": 2222,
       "ssh_host_port_max": 2229,
       "ssh_port": 22,
-      "ssh_wait_timeout": "6000s",
+      "ssh_wait_timeout": "1200s",
       "disk_size": 51200,
       "headless": true,
       "http_directory": "http",
@@ -35,7 +35,7 @@
           "modifyvm", "{{.Name}}", "--memory", "2048"
         ],
         [
-          "modifyvm", "{{.Name}}", "--cpus", "4"
+          "modifyvm", "{{.Name}}", "--cpus", "8"
         ]
       ]
     }
