@@ -46,12 +46,15 @@ If you want the box to upload to Atlas you need to add your ATLAS_TOKEN and ATLA
 
 ### Test / develop / troubleshoot ansible from vagrant box like so:
 ```
-    vagrant init virtualbox-centos-7 builds/virtualbox-centos-7.2.box
+    vagrant up
+    ansible-playbook --user=vagrant --ask-pass -i inventory.yml ansible/site.yml
+    vagrant init virtualbox-centos-7 builds/virtualbox-centos-7.box
     vagrant up
     vagrant ssh
     sudo -s
+    yum install -y epel-release
     yum install -y ansible
-    ansible-playbook -i "localhost," -c local /vagrant/ansible/main.yml
+    ansible-playbook -i "localhost," -c local /vagrant/ansible/site.yml
 ```
 You might want to comment out:
 ```

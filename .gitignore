@@ -3,9 +3,9 @@
 *.DS_Store
 *.vagrant
 *.retry
+*.log
 packer_cache/*
 build/*
 builds/*
 Vagrantfile
-packer.log
 output*

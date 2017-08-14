@@ -1,7 +1,7 @@
 {
   "variables": {
-    "cloud_token": "{{env `ATLAS_TOKEN`}}",
-    "version": "7.3.{{timestamp}}",
+    "atlas_token": "{{env `ATLAS_TOKEN`}}",
+    "atlas_build_slug": "{{env `ATLAS_BUILD_SLUG`}}",
     "atlas_changelog": "{{env `ATLAS_CHANGELOG`}}"
   },
   "builders": [
@@ -17,7 +17,7 @@
       "ssh_port": 22,
       "ssh_wait_timeout": "1200s",
       "disk_size": 51200,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "iso_checksum": "27bd866242ee058b7a5754e83d8ee8403e216b93d130d800852a96f41c34d86a",
       "iso_checksum_type": "sha256",
@@ -53,19 +53,11 @@
     }
   ],
   "post-processors": [
-    [
-      {
-        "type": "vagrant",
-        "keep_input_artifact": true,
-        "output": "builds/{{.Provider}}-centos-7.box"
-      },
-      {
-        "type": "vagrant-cloud",
-        "box_tag": "scorputty/centos",
-        "access_token": "{{user `cloud_token`}}",
-        "version": "{{user `version`}}",
-        "version_description": "{{user `ATLAS_CHANGELOG`}}, build at {{timestamp}}"
-      }
-    ]
+    [{
+      "type": "vagrant",
+      "compression_level": 9,
+      "keep_input_artifact": true,
+      "output": "builds/{{.Provider}}-centos-7.box"
+    }]
   ]
 }

@@ -30,7 +30,46 @@
       - zlib-devel
 
   # Install GuestAdditions
-  - include: vboxguestadditions.yml
+  - name: Check if GuestAdditions are installed
+    command: lsmod
+    register: vboxguest_check
+
+  # - debug:
+  #     msg: "{{vboxguest_check}}"
+
+  - name: Install GuestAdditions
+    block:
+      - name: Get VirtualBox version.
+        shell: cat /home/vagrant/.vbox_version
+        register: virtualbox_version
+
+      # - debug:
+      #     msg: "{{virtualbox_version}}"
+
+      - name: Mount VirtualBox guest additions ISO.
+        mount:
+          name: /tmp/vbox
+          src: "/home/vagrant/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso"
+          opts: loop
+          state: mounted
+          fstype: iso9660
+
+      - name: Run VirtualBox guest additions installation.
+        shell: sh /tmp/vbox/VBoxLinuxAdditions.run
+        failed_when: false
+
+      - name: Unmount VirtualBox guest additions ISO.
+        mount:
+          name: /tmp/vbox
+          src: "/home/vagrant/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso"
+          state: absent
+          fstype: iso9660
+
+      - name: Delete VirtualBox guest additions ISO.
+        file:
+          path: "/home/vagrant/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso"
+          state: absent
+    when: vboxguest_check.stdout.find('vboxguest') == -1
 
   # Fixes
   - name: Fix slow DNS (adapted from Bento).
@@ -42,9 +81,6 @@
 
   - name: Fixing ifcfg-lo errors network loopback
     command: echo "NM_CONTROLLED=no" >>/etc/sysconfig/network-scripts/ifcfg-lo
-
-  - name: Fix yum SSL errors
-    command: yum -y reinstall ca-certificates openssl
 
   - name: Remove RedHat interface persistence.
     lineinfile:
@@ -63,22 +99,35 @@
     with_items:
       - kdump
 
-  # - name: Restart network service (explicitly).
-  #   service: name=network state=restarted
+  - name: Restart network service (explicitly).
+    service: name=network state=restarted
 
   # Setup time
   - name: Set timezone
     timezone:
       name: "{{ timezone }}"
 
-  - name: Copy the ntp.conf template file
-    template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  # Setup cronyd task
+  - name: Ensure ntp package is absent
+    package:
+      name: ntp
+      state: absent
 
-  - name: Ensure NTP is running and enabled as configured.
-    systemd:
-      name: ntpd
-      state: started
+  - name: Update chrony.conf from template
+    template:
+      src: chrony.conf.j2
+      dest: "{{ chrony_config_path }}"
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    register: chrony_conf
+
+  - name: Ensure chrony service is started and enabled
+    service:
+      name: "chronyd"
       enabled: yes
+      state: started
 
   # SSH daemon configuration.
   - name: Configure SSH daemon.
