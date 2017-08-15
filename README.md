@@ -41,7 +41,7 @@ These steps explain how this Packer Ansible build is setup.
 
 ### Info
 There are two build files, one local and one that does a upload of the image to Vagrant Cloud.
-If you want the box to upload to Vagrant Cloud you need to add your ATLAS_TOKEN to your shell ENV (.bash_profile. More info  [here](https://vagrantcloud.com/help/packer/builds/build-environment).
+If you want the box to upload to Vagrant Cloud you need to add your ATLAS_TOKEN to your shell ENV (.bash_profile. More info  [here](https://atlas.hashicorp.com/help/packer/artifacts/creating-vagrant-boxes).
 
 ### Test / develop / troubleshoot Ansible from within the Vagrant box like so:
 ```
