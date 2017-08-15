@@ -64,7 +64,7 @@
         "box_tag": "scorputty/centos",
         "access_token": "{{user `cloud_token`}}",
         "version": "{{user `version`}}",
-        "version_description": "{{user `ATLAS_CHANGELOG`}}, build at {{timestamp}}"
+        "version_description": "{{user `atlas_changelog`}}"
       }
     ]
   ]
