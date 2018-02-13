@@ -17,7 +17,7 @@
       "ssh_port": 22,
       "ssh_wait_timeout": "1200s",
       "disk_size": 51200,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "iso_checksum": "bba314624956961a2ea31dd460cd860a77911c1e0a56e4820a12b9c5dad363f5",
       "iso_checksum_type": "sha256",
@@ -43,7 +43,11 @@
   "provisioners": [
     {
       "type": "ansible",
-      "playbook_file": "./ansible/site.yml"
+      "playbook_file": "./ansible/site.yml",
+      "ansible_env_vars": [
+        "ANSIBLE_SSH_ARGS=''",
+        "ANSIBLE_SSH_PIPELINING=true"
+      ]
     },
     {
       "type": "shell",
